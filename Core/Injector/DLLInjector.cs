@@ -53,6 +53,11 @@ namespace DeLLaGUI
 				throw new ArgumentException("The provided process is not currently running");
 			}
 
+			if(process == Process.GetCurrentProcess())
+            {
+				throw new ArgumentException("Cannot inject DLL to injector");
+			}
+
 			ProcessMemoryManager = new MemoryManager(process);
 
 			switch (injectionType)

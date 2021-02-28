@@ -70,12 +70,14 @@ namespace DeLLaGUI
             // 
             // ButtonInject
             // 
+            this.ButtonInject.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ButtonInject.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ButtonInject.Location = new System.Drawing.Point(115, 267);
             this.ButtonInject.Name = "ButtonInject";
             this.ButtonInject.Size = new System.Drawing.Size(152, 40);
             this.ButtonInject.TabIndex = 2;
             this.ButtonInject.Text = "Inject";
-            this.ButtonInject.UseVisualStyleBackColor = true;
+            this.ButtonInject.UseVisualStyleBackColor = false;
             this.ButtonInject.Click += new System.EventHandler(this.ButtonInject_ClickAsync);
             // 
             // rTBLog
@@ -151,6 +153,7 @@ namespace DeLLaGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(376, 313);
             this.Controls.Add(this.cBShowVisibleProcesses);
             this.Controls.Add(this.label3);

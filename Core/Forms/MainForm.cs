@@ -100,7 +100,7 @@ namespace DeLLaGUI
                 {
                     MessageBox.Show(ex.Message, "Error while injecting DLL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            };
+            });
         }
     }
 }
