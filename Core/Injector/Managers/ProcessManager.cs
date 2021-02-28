@@ -12,8 +12,6 @@ namespace DeLLaGUI
         public static List<string> GetAllProcesses()
         {
             var processes = Process.GetProcesses();
-                    
-
             var toret = new List<string>();
 
             foreach (var process in processes)

@@ -55,7 +55,7 @@ namespace DeLLaGUI
 
 			ProcessMemoryManager = new MemoryManager(process);
 
-            switch (injectionType)
+			switch (injectionType)
 			{
 				case InjectionType.Kernell:
 					InjectLoadLibraryDependant(dllPath);

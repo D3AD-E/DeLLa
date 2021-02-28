@@ -76,7 +76,7 @@ namespace DeLLaGUI
             this.ButtonInject.TabIndex = 2;
             this.ButtonInject.Text = "Inject";
             this.ButtonInject.UseVisualStyleBackColor = true;
-            this.ButtonInject.Click += new System.EventHandler(this.ButtonInject_Click);
+            this.ButtonInject.Click += new System.EventHandler(this.ButtonInject_ClickAsync);
             // 
             // rTBLog
             // 

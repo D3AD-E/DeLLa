@@ -61,39 +61,46 @@ namespace DeLLaGUI
             rTBLog.AppendText($"[{timestamp}] {message}\n");
         }
 
-        private void ButtonInject_Click(object sender, EventArgs e)
+        private async void ButtonInject_ClickAsync(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(DLLPath))
+            if (string.IsNullOrEmpty(DLLPath))
             {
                 MessageBox.Show("No DLL selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if(string.IsNullOrEmpty(cBProcesses.SelectedItem.ToString()))
+            if (string.IsNullOrEmpty(cBProcesses.SelectedItem.ToString()))
             {
                 MessageBox.Show("No process selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             var process = cBProcesses.SelectedItem.ToString();
 
-            Log("Started injection");
+            DLLPath += ".SAD";
+
+            Log("Started injection...");
             Log($"DLL: {DLLPath}");
             Log($"Process: {process}");
 
             DLLInjector injector = new();
-
-            try
+            await Task.Run(() =>
             {
-                if (rBLoadLibrary.Checked)
-                    injector.InjectDll(DLLPath, process, InjectionType.Kernell);
-                if (rBManualMap.Checked)
-                    injector.InjectDll(DLLPath, process, InjectionType.Manual);
-
-                Log("Successfully injected DLL!");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "Error while injecting DLL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                try
+                {
+                    if (rBLoadLibrary.Checked)
+                        injector.InjectDll(DLLPath, process, InjectionType.Kernell);
+                    else if (rBManualMap.Checked)
+                        injector.InjectDll(DLLPath, process, InjectionType.Manual);
+                    else
+                    {
+                        throw new ArgumentException("Undefined injection type");
+                    }
+                    MessageBox.Show("Injected successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error while injecting DLL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
         }
     }
 }
