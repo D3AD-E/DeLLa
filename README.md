@@ -4,7 +4,7 @@
 - Uses two methods of injection: Kernell LoadLibrary and Manual mapping
 - Logs process of injection
 - Simple UI
-## Dependancies
+## Dependencies
  - Lunar
 ## Installation
  dotnet add package Lunar --version 1.4.10
