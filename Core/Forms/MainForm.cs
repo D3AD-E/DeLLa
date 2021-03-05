@@ -75,8 +75,6 @@ namespace DeLLaGUI
             }
             var process = cBProcesses.SelectedItem.ToString();
 
-            DLLPath += ".SAD";
-
             Log("Started injection...");
             Log($"DLL: {DLLPath}");
             Log($"Process: {process}");
