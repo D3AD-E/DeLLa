@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeLLaGUI.Core.Obfuscator;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -75,11 +76,22 @@ namespace DeLLaGUI
             }
             var process = cBProcesses.SelectedItem.ToString();
 
-            DLLPath += ".SAD";
-
             Log("Started injection...");
             Log($"DLL: {DLLPath}");
             Log($"Process: {process}");
+
+            Obfuscator.ClearTemp();
+
+            if (cBRndName.Checked)
+            {
+                Log("Randomizing DLL name ...");
+                DLLPath = Obfuscator.RenameDll(DLLPath);
+            }
+            if(cBRndHash.Checked)
+            {
+                Log("Randomizing DLL HashSum...");
+                DLLPath = Obfuscator.ChangeHashSumDll(DLLPath);
+            }
 
             DLLInjector injector = new();
             await Task.Run(() =>
@@ -90,6 +102,8 @@ namespace DeLLaGUI
                         injector.InjectDll(DLLPath, process, InjectionType.Kernell);
                     else if (rBManualMap.Checked)
                         injector.InjectDll(DLLPath, process, InjectionType.Manual);
+                    else if (rBNtCreateProc.Checked)
+                        injector.InjectDll(DLLPath, process, InjectionType.NtCreateThread);
                     else
                     {
                         throw new ArgumentException("Undefined injection type");
@@ -100,7 +114,17 @@ namespace DeLLaGUI
                 {
                     MessageBox.Show(ex.Message, "Error while injecting DLL", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                finally
+                {
+                    Obfuscator.ClearTemp();
+                }
             });
+        }
+
+        private void rTBLog_TextChanged(object sender, EventArgs e)
+        {
+            rTBLog.SelectionStart = rTBLog.Text.Length;
+            rTBLog.ScrollToCaret();
         }
     }
 }

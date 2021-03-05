@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,12 @@ namespace DeLLaGUI
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         private static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress,
                             uint dwSize, AllocationType flAllocationType, MemoryProtectionType flProtect);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern bool VirtualFreeEx(IntPtr processHandle, IntPtr address, nint size, int freeType);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        internal static extern bool ReadProcessMemory(IntPtr processHandle, IntPtr address, out byte bytes, nint size, out nint bytesRead);
 
         public MemoryManager(Process process)
         {
@@ -61,6 +69,41 @@ namespace DeLLaGUI
             }
 
             return address;
+        }
+        public T ReadStructure<T>(IntPtr address) where T : unmanaged
+        {
+            Span<byte> structureBytes = stackalloc byte[Unsafe.SizeOf<T>()];
+
+            if (!ReadProcessMemory(Process.Handle, address, out structureBytes[0], structureBytes.Length, out _))
+            {
+                throw new Win32Exception();
+            }
+
+            return MemoryMarshal.Read<T>(structureBytes);
+        }
+        public void FreeMemory(IntPtr address)
+        {
+            if (!VirtualFreeEx(Process.Handle, address, 0, 0x8000))
+            {
+                throw new Win32Exception();
+            }
+        }
+
+        public IntPtr GetEntryAdress(string dllName)
+        {
+            ProcessModule myProcessModule;
+            // Get all the modules associated with 'myProcess'.
+            ProcessModuleCollection myProcessModuleCollection = Process.Modules;
+
+            // Display the 'EntryPointAddress' of each of the modules.
+            for (int i = 0; i < myProcessModuleCollection.Count; i++)
+            {
+                myProcessModule = myProcessModuleCollection[i];
+                if(dllName == myProcessModule.ModuleName)
+                    return myProcessModule.EntryPointAddress;
+            }
+
+            throw new Exception("Module name was not foind in process");
         }
         
     }

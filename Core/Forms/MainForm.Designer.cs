@@ -37,15 +37,21 @@ namespace DeLLaGUI
             this.cBProcesses = new System.Windows.Forms.ComboBox();
             this.ButtonChooseDll = new System.Windows.Forms.Button();
             this.labelCurrentDLL = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cBShowVisibleProcesses = new System.Windows.Forms.CheckBox();
+            this.gBObfuscation = new System.Windows.Forms.GroupBox();
+            this.cBRndHash = new System.Windows.Forms.CheckBox();
+            this.cBRndName = new System.Windows.Forms.CheckBox();
+            this.gBInjection = new System.Windows.Forms.GroupBox();
+            this.rBNtCreateProc = new System.Windows.Forms.RadioButton();
+            this.gBObfuscation.SuspendLayout();
+            this.gBInjection.SuspendLayout();
             this.SuspendLayout();
             // 
             // rBLoadLibrary
             // 
             this.rBLoadLibrary.AutoSize = true;
-            this.rBLoadLibrary.Location = new System.Drawing.Point(269, 43);
+            this.rBLoadLibrary.Location = new System.Drawing.Point(6, 22);
             this.rBLoadLibrary.Name = "rBLoadLibrary";
             this.rBLoadLibrary.Size = new System.Drawing.Size(87, 19);
             this.rBLoadLibrary.TabIndex = 0;
@@ -56,7 +62,7 @@ namespace DeLLaGUI
             // rBManualMap
             // 
             this.rBManualMap.AutoSize = true;
-            this.rBManualMap.Location = new System.Drawing.Point(269, 68);
+            this.rBManualMap.Location = new System.Drawing.Point(6, 47);
             this.rBManualMap.Name = "rBManualMap";
             this.rBManualMap.Size = new System.Drawing.Size(92, 19);
             this.rBManualMap.TabIndex = 1;
@@ -72,7 +78,7 @@ namespace DeLLaGUI
             // 
             this.ButtonInject.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ButtonInject.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.ButtonInject.Location = new System.Drawing.Point(115, 267);
+            this.ButtonInject.Location = new System.Drawing.Point(193, 267);
             this.ButtonInject.Name = "ButtonInject";
             this.ButtonInject.Size = new System.Drawing.Size(152, 40);
             this.ButtonInject.TabIndex = 2;
@@ -86,16 +92,17 @@ namespace DeLLaGUI
             this.rTBLog.Name = "rTBLog";
             this.rTBLog.ReadOnly = true;
             this.rTBLog.ShortcutsEnabled = false;
-            this.rTBLog.Size = new System.Drawing.Size(355, 98);
+            this.rTBLog.Size = new System.Drawing.Size(479, 98);
             this.rTBLog.TabIndex = 3;
             this.rTBLog.Text = "";
+            this.rTBLog.TextChanged += new System.EventHandler(this.rTBLog_TextChanged);
             // 
             // cBProcesses
             // 
             this.cBProcesses.FormattingEnabled = true;
             this.cBProcesses.Location = new System.Drawing.Point(11, 134);
             this.cBProcesses.Name = "cBProcesses";
-            this.cBProcesses.Size = new System.Drawing.Size(355, 23);
+            this.cBProcesses.Size = new System.Drawing.Size(479, 23);
             this.cBProcesses.TabIndex = 4;
             this.cBProcesses.DropDown += new System.EventHandler(this.cBProcesses_DropDown);
             // 
@@ -117,15 +124,6 @@ namespace DeLLaGUI
             this.labelCurrentDLL.Size = new System.Drawing.Size(103, 15);
             this.labelCurrentDLL.TabIndex = 6;
             this.labelCurrentDLL.Text = "Current Dll: NONE";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(269, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 15);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Injection type";
             // 
             // label3
             // 
@@ -149,26 +147,83 @@ namespace DeLLaGUI
             this.cBShowVisibleProcesses.Text = "Show only processes with windows";
             this.cBShowVisibleProcesses.UseVisualStyleBackColor = true;
             // 
+            // gBObfuscation
+            // 
+            this.gBObfuscation.Controls.Add(this.cBRndHash);
+            this.gBObfuscation.Controls.Add(this.cBRndName);
+            this.gBObfuscation.Location = new System.Drawing.Point(143, 19);
+            this.gBObfuscation.Name = "gBObfuscation";
+            this.gBObfuscation.Size = new System.Drawing.Size(202, 69);
+            this.gBObfuscation.TabIndex = 11;
+            this.gBObfuscation.TabStop = false;
+            this.gBObfuscation.Text = "Obfuscation";
+            // 
+            // cBRndHash
+            // 
+            this.cBRndHash.AutoSize = true;
+            this.cBRndHash.Location = new System.Drawing.Point(7, 41);
+            this.cBRndHash.Name = "cBRndHash";
+            this.cBRndHash.Size = new System.Drawing.Size(162, 19);
+            this.cBRndHash.TabIndex = 1;
+            this.cBRndHash.Text = "Randomize DLL HashSum";
+            this.cBRndHash.UseVisualStyleBackColor = true;
+            // 
+            // cBRndName
+            // 
+            this.cBRndName.AutoSize = true;
+            this.cBRndName.Location = new System.Drawing.Point(6, 16);
+            this.cBRndName.Name = "cBRndName";
+            this.cBRndName.Size = new System.Drawing.Size(141, 19);
+            this.cBRndName.TabIndex = 0;
+            this.cBRndName.Text = "Randomize DLL name";
+            this.cBRndName.UseVisualStyleBackColor = true;
+            // 
+            // gBInjection
+            // 
+            this.gBInjection.Controls.Add(this.rBNtCreateProc);
+            this.gBInjection.Controls.Add(this.rBLoadLibrary);
+            this.gBInjection.Controls.Add(this.rBManualMap);
+            this.gBInjection.Location = new System.Drawing.Point(364, 19);
+            this.gBInjection.Name = "gBInjection";
+            this.gBInjection.Size = new System.Drawing.Size(126, 99);
+            this.gBInjection.TabIndex = 12;
+            this.gBInjection.TabStop = false;
+            this.gBInjection.Text = "Injection type";
+            // 
+            // rBNtCreateProc
+            // 
+            this.rBNtCreateProc.AutoSize = true;
+            this.rBNtCreateProc.Location = new System.Drawing.Point(6, 72);
+            this.rBNtCreateProc.Name = "rBNtCreateProc";
+            this.rBNtCreateProc.Size = new System.Drawing.Size(108, 19);
+            this.rBNtCreateProc.TabIndex = 2;
+            this.rBNtCreateProc.TabStop = true;
+            this.rBNtCreateProc.Text = "NtCreateThread";
+            this.rBNtCreateProc.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(376, 313);
+            this.ClientSize = new System.Drawing.Size(501, 313);
+            this.Controls.Add(this.gBInjection);
+            this.Controls.Add(this.gBObfuscation);
             this.Controls.Add(this.cBShowVisibleProcesses);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.labelCurrentDLL);
             this.Controls.Add(this.ButtonChooseDll);
             this.Controls.Add(this.cBProcesses);
             this.Controls.Add(this.rTBLog);
             this.Controls.Add(this.ButtonInject);
-            this.Controls.Add(this.rBManualMap);
-            this.Controls.Add(this.rBLoadLibrary);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "DeLLa";
+            this.gBObfuscation.ResumeLayout(false);
+            this.gBObfuscation.PerformLayout();
+            this.gBInjection.ResumeLayout(false);
+            this.gBInjection.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,9 +239,13 @@ namespace DeLLaGUI
         private System.Windows.Forms.ComboBox cBProcesses;
         private System.Windows.Forms.Button ButtonChooseDll;
         private System.Windows.Forms.Label labelCurrentDLL;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cBShowVisibleProcesses;
+        private System.Windows.Forms.GroupBox gBObfuscation;
+        private System.Windows.Forms.CheckBox cBRndHash;
+        private System.Windows.Forms.CheckBox cBRndName;
+        private System.Windows.Forms.GroupBox gBInjection;
+        private System.Windows.Forms.RadioButton rBNtCreateProc;
     }
 }
 
