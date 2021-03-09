@@ -114,7 +114,7 @@ namespace DeLLaGUI
             this.ButtonChooseDll.TabIndex = 5;
             this.ButtonChooseDll.Text = "Choose DLL";
             this.ButtonChooseDll.UseVisualStyleBackColor = true;
-            this.ButtonChooseDll.Click += new System.EventHandler(this.ButtonInjectClick);
+            this.ButtonChooseDll.Click += new System.EventHandler(this.ButtonChooseDLLClick);
             // 
             // labelCurrentDLL
             // 
@@ -220,6 +220,7 @@ namespace DeLLaGUI
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "DeLLa";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
             this.gBObfuscation.ResumeLayout(false);
             this.gBObfuscation.PerformLayout();
             this.gBInjection.ResumeLayout(false);

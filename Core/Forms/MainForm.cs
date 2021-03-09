@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -23,12 +24,25 @@ namespace DeLLaGUI
             InitializeComponent();
         }
 
-        private void ButtonInjectClick(object sender, EventArgs e)
+        private void SetupDll(string path)
+        {
+            if (Path.GetExtension(path) == ".dll")
+            {
+                DLLPath = path;
+                labelCurrentDLL.Text = $"Current DLL: {Path.GetFileName(path)}";
+            }
+            else
+            {
+                MessageBox.Show("Selected file is not .DLL", "Invalid file extention", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void ButtonChooseDLLClick(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                DLLPath = openFileDialog.FileName;
-                labelCurrentDLL.Text = $"Current DLL: {openFileDialog.SafeFileName}";
+                SetupDll(openFileDialog.FileName);
             }
         }
 
@@ -125,6 +139,15 @@ namespace DeLLaGUI
         {
             rTBLog.SelectionStart = rTBLog.Text.Length;
             rTBLog.ScrollToCaret();
+        }
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            if (fileList == null || fileList.Length == 0)
+                return;
+            SetupDll(fileList[0]);
         }
     }
 }
