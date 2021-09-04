@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeLLaGUI", "DeLLaGUI.csproj", "{457CFE44-2FBD-4D2E-98F1-84CFC4FB1AD6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunar", "..\..\Test\Lunar\Lunar.csproj", "{FE5084BD-6F54-4908-BD30-FBA3B264D3A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lunar", "..\Lunar\Lunar\Lunar.csproj", "{D4A6A0C7-58D7-4E86-950B-3AA91271B587}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{457CFE44-2FBD-4D2E-98F1-84CFC4FB1AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{457CFE44-2FBD-4D2E-98F1-84CFC4FB1AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{457CFE44-2FBD-4D2E-98F1-84CFC4FB1AD6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE5084BD-6F54-4908-BD30-FBA3B264D3A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE5084BD-6F54-4908-BD30-FBA3B264D3A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE5084BD-6F54-4908-BD30-FBA3B264D3A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE5084BD-6F54-4908-BD30-FBA3B264D3A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A6A0C7-58D7-4E86-950B-3AA91271B587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A6A0C7-58D7-4E86-950B-3AA91271B587}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A6A0C7-58D7-4E86-950B-3AA91271B587}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A6A0C7-58D7-4E86-950B-3AA91271B587}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

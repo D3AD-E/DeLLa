@@ -5,10 +5,13 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon />
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Test\Lunar\Lunar.csproj" />
+    <ProjectReference Include="..\Lunar\Lunar\Lunar.csproj" />
   </ItemGroup>
+
 
 </Project>
